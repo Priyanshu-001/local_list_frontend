@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar v-if="!fullscrn"
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+      <v-icon x-large> mdi-bag-checked </v-icon>
+      </div>
+
+      <v-spacer></v-spacer>
+
+     
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  data: () => ({
+    //
+  }),
+  computed:{
+    fullscrn: function(){
+      return this.$route.meta.fullscrn
     }
-  }
-}
-</style>
+  },
+ created(){
+  this.$store.dispatch('setBaseURL')
+
+ }
+
+};
+</script>
