@@ -12,7 +12,7 @@ export default new Vuex.Store({
       name: 'Funky Boi',
       status: 'incomplete',
     },
-    baseURL: 'localhost',
+    baseURL: "http://localhost:80/api/",
     jwt:'heyy',
     refreshToken: window.localStorage.getItem('refreshToken')||'',
     AxiosAuth: null,
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     setBaseURL(context){
       if(process.env.NODE_ENV === 'development')
         {
-          context.commit('baseURL','http://localhost:8080/api/')
+          context.commit('baseURL','http://localhost:80/api/')
         }
 
     }
