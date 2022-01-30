@@ -5,10 +5,15 @@
         mdi-loading
       </v-icon>
 
+				<v-icon  x-large color="error" v-if="OTP_status === 'incorrect'"> 
+        mdi-sticker-remove
+      </v-icon>
+        
+
         <v-icon 
         x-large 
-        color="green"
-        v-if="OTP_status === 'Verified' "> mdi-sticker-check</v-icon>
+        color="success"
+        v-if="OTP_status === 'verified' "> mdi-sticker-check</v-icon>
        
           <h3 class="text-h6 font-weight-light mb-2">
            {{OTP_status}}
@@ -16,7 +21,8 @@
           
           <span class=" grey--text">{{message}}</span>
           <br/>
-				<template v-if="user && user.status=='completed'">
+        <template v-if="OTP_status=='verified'">
+				<template v-if="(!!user && user.status=='completed')">
 				<v-btn class="primary" >
 				<v-icon  > mdi-home </v-icon>
 				Home
@@ -31,6 +37,16 @@
 				<v-btn text color="primary" @click="partner">
 				{{wrongLogin}}
 				</v-btn>
+				</template>
+				</template>
+
+				<template v-if="OTP_status === 'incorrect'">
+					<v-btn text @click="$emit('back')" color="primary">
+						<v-icon>
+							mdi-reload
+						</v-icon>
+						Try again
+					</v-btn>
 				</template>
         </div>
 </template>
@@ -70,6 +86,7 @@ export default{
 		OTP_status:{
 			required: true,
 			type: String,
+			default: 'Verifying OTP'
 		},
 		LoginType:{
 			type:String,
@@ -93,8 +110,8 @@ export default{
 					this.message = `Welcome back ${this.user.name}`	
 				}
 				
-				else if(this.OTP_status === 'unverified')
-				{ this.message= 'Incorect OTP please go back'
+				else if(this.OTP_status === 'incorrect')
+				{ this.message= 'incorrect OTP please try again'
 				}
 				else{
 					this.message = 'Thanks for signing up!'
