@@ -25,7 +25,40 @@ const routes = [
     fullscrn:true
   },
     component: ()=>import('../views/login')
-  }
+  },
+  {
+    path: '/changename',
+    name: 'changeName',
+    meta :{
+    fullscrn:false
+      },
+    component: ()=>import('../views/ChangeUsername')
+  },
+  {
+    path: '/devices',
+    name: 'devices',
+    component: ()=>import('../views/Devices')
+  },
+  {
+    path: '/neworder',
+    name: 'neworder',
+    component: ()=>import('../views/customer/NewOrder')
+  },
+  {
+    path: '/history',
+    name: 'past',
+    component: ()=>import('../views/History')
+  },
+  {
+    path: '/orders/:id',
+    name: 'order',
+    component: ()=>import('../views/Order')
+  },
+  {
+    path: '/ActiveOrders',
+    name: 'current',
+    component: ()=>import('../views/Devices')
+  },
 ]
 
 const router = new VueRouter({

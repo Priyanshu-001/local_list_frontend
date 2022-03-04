@@ -5,12 +5,12 @@
   >
     <v-card-title class="text-h6 font-weight-regular justify-space-between">
       <span>{{ currentTitle }} Login </span>
-      <v-avatar
+     <!--  <v-avatar
         color="primary "
         class="subheading white--text"
         size="24"
         v-text="step"
-      ></v-avatar>
+      ></v-avatar> -->
     </v-card-title>
 
     <v-window v-model="step">
@@ -21,6 +21,7 @@
             type="tel"
             v-model="phone"
             prefix="+91"
+            @keyup.enter="nextStep"
             :rules="[tenOnly,numeric]"
           />
           <span class="text-caption grey--text text--darken-1">
@@ -58,7 +59,7 @@
 
       <v-window-item :value="3">
         <final-status 
-        @back="step=1"
+        @back="step=2; OTP='' "
         :OTP_status="OTP_status" 
         :LoginType="LoginType" 
         @restart="step=2" />
@@ -78,7 +79,7 @@
 
       <v-spacer></v-spacer>
       <v-btn
-        :disabled="step === 3"
+        :disabled="step === 3 || (step === 2 && OTP.length !=6)"
         color="primary"
         depressed
         @click="nextStep"
@@ -172,22 +173,24 @@ export default {
     }
   },
   methods:{
-
     verifyOTP: async function(){
       this.OTP_status = 'Verifying OTP'
 
-      // AxiosAuth.post(`/${this.LoginType}/login`,{number:this.phone,OTP:this.OTP})
-      // .then(response=>{
-      //   console.log(response.status)
-      //   if(response.status === 200)
-      //     {
-      //       this.OTP_status  ='Verified'
-      //       this.snackMSG = 'Succesfully Verified'
-      //       this.snackbar=true
-      //     }
-      // })
-      // .catch(()=>{this.OTP_status = 'Incorect'})
-      setTimeout(()=>this.OTP_status = 'incorrect',2000)
+      AxiosAuth.post(`/${this.LoginType}/login`,{number:this.phone,OTP:this.OTP})
+      .then(response=>{
+        console.log(response.status)
+        if(response.status === 200)
+          { const {JWT,refreshToken} = response.data
+            this.$store.dispatch('setJWT',JWT)
+            this.$store.dispatch('setRefreshToken',refreshToken)
+
+            this.OTP_status  ='Verified'
+            this.snackMSG = 'Succesfully Verified'
+            this.snackbar=true
+          }
+      })
+      .catch(()=>{this.OTP_status = 'incorrect'})
+      // setTimeout(()=>this.OTP_status = 'incorrect',2000)
     },
     sendOTP: async function(){
       try{

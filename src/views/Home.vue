@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-btn @click="trial">
-    </v-btn>
+   Make homepage fast
   </div>
 </template>
 

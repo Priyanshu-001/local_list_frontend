@@ -19,15 +19,15 @@ export default{
 
 	computed:{
 
-	}
+	},
 
 	watch:{
 
-	}
+	},
 
 	component:{
 
-	}
+	},
 }
 </script>
 

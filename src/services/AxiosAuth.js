@@ -10,15 +10,16 @@ import store from '@/store/index.js'
       }
     })
 
+    //Requests
     AxiosAuth.interceptors.request.use(config=>{
 
-      config.headers['Authorization'] = store.getters.jwt
+      config.headers['Authorization'] = store.getters.JWT
       return config
     },
     err=>{ return Promise.reject(err)}
-
     )
-
+       
+    //response
     AxiosAuth.interceptors.response.use(
       res=>{ return res },
       async err=>{
@@ -31,8 +32,8 @@ import store from '@/store/index.js'
               const rs = await AxiosAuth.post('/refreshToken',{
                 refreshToken: store.getters.refreshToken
               })
-              const {token} = rs.data
-              store.dispatch('jwt',token)
+              const {JWT} = rs.data
+              store.dispatch('setJWT',JWT)
               return AxiosAuth(err.config)
 
             }

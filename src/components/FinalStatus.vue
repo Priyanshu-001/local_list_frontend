@@ -13,7 +13,7 @@
         <v-icon 
         x-large 
         color="success"
-        v-if="OTP_status === 'verified' "> mdi-sticker-check</v-icon>
+        v-if="OTP_status === 'Verified' "> mdi-sticker-check</v-icon>
        
           <h3 class="text-h6 font-weight-light mb-2">
            {{OTP_status}}
@@ -21,15 +21,15 @@
           
           <span class=" grey--text">{{message}}</span>
           <br/>
-        <template v-if="OTP_status=='verified'">
-				<template v-if="(!!user && user.status=='completed')">
-				<v-btn class="primary" >
+        <template v-if="OTP_status=='Verified'">
+				<template v-if="(!!user && user.status=='complete')">
+				<v-btn class="primary" :to="{name:'Home'}">
 				<v-icon  > mdi-home </v-icon>
 				Home
 				</v-btn>
 				</template>
 				<template v-if="user && user.status=='incomplete'">
-				<v-btn class="primary" :to="{name:'create'}">
+				<v-btn class="primary" :to="{name:'changeName'}">
 					<v-icon> mdi-account </v-icon>
 					Complete Your Profile
 				</v-btn>
@@ -66,15 +66,15 @@ export default{
 	methods:{
 		partner:async function(){
 			await logout()
-			if(this.LoginType === 'Customer')
-			this.$router.push({name:'login', params:{LoginType: 'Business'}})
+			if(this.LoginType === 'customer')
+			this.$router.push({name:'login', params:{LoginType: 'business'}})
 			else
-			this.$router.push({name:'login', params:{LoginType: 'Customer'}})
+			this.$router.push({name:'login', params:{LoginType: 'customer'}})
 			this.$emit('restart')
 
 		},
 		wrongMsg: async function(){
-				if(this.LoginType === 'Customer')
+				if(this.LoginType === 'customer')
 			this.wrongLogin='Login as Partner'
 		else
 			this.wrongLogin='Login as Customer'
@@ -105,7 +105,7 @@ export default{
 
 	watch:{
 		OTP_status: function(){
-				if(this.OTP_status === 'Verified' && this.user.status === 'completed')
+				if(this.OTP_status === 'Verified' && this.user.status === 'complete')
 				{
 					this.message = `Welcome back ${this.user.name}`	
 				}
