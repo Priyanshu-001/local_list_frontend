@@ -108,7 +108,7 @@ export default new Vuex.Store({
 
       try{
         let location = await promisePosition()
-        context.commit('getLocation',{long:location.coords.latitude, lat:location.coords.longitude})
+        context.commit('getLocation',{lat:location.coords.latitude, long:location.coords.longitude})
 
       }
       catch(error){
