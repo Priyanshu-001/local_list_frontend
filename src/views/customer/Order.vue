@@ -13,8 +13,8 @@
 				:tip="order.tip"/>
 			</v-col>
 		</v-row>
-		<v-row v-if="!$vuetify.breakpoint.mobile">
-			<v-col md="8" >
+		<v-row >
+			<v-col md="8" cols="12">
 				<v-card>
 					<v-card-title>
 						<v-icon class="mr-2">
@@ -22,7 +22,7 @@
 						</v-icon>
 						Instructions
 					</v-card-title>
-					<v-card-text class="text-body-1">
+					<v-card-text class="text-body-1" >
 						<p>
 							<ul>
 								<li>
@@ -35,8 +35,10 @@
 						</p>
 					</v-card-text>
 				</v-card>
+				<updates-timeline @reload="getOrder" freq="600" :order="order">
+				</updates-timeline>
 			</v-col>
-			<v-col>
+			<v-col v-if="!$vuetify.breakpoint.mobile">
 				<item-list :items="order.items" :status="order.status"/>
 			</v-col>
 		</v-row>
@@ -55,6 +57,8 @@
 import OrderHead from '@/components/customer/OrderHead'
 import AxiosAuth from '@/services/AxiosAuth'
 import ItemList from '@/components/ItemList'
+import UpdatesTimeline from '@/components/UpdatesTimeline'
+
 export default{
 	name: 'CustomerOrder',
 	data(){
@@ -106,6 +110,7 @@ export default{
 	},
 
 	components:{
+		UpdatesTimeline,
 		OrderHead,
 		ItemList,
 		// OrderCard
