@@ -28,10 +28,10 @@
             Mobile Number for {{LoginType}}
           </span>
           <br/>
-          <router-link to="/business/login" v-if="LoginType==='customer'" >
+          <router-link to="/partner/login" v-if="LoginType==='customer'" >
 			Login as gig worker <v-icon >mdi-external</v-icon>
           </router-link>
-           <router-link to="/customer/login" v-if="LoginType==='business'" >
+           <router-link to="/customer/login" v-if="LoginType==='partner'" >
       Login as a customer <v-icon >mdi-external</v-icon>
           </router-link>
         </v-card-text>
