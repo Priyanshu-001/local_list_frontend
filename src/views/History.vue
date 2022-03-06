@@ -3,7 +3,7 @@
 		<h1 class="text-h4 font-weight-light">  Your Orders </h1> 
 		
 		<v-container>
-			<component :is="component" v-for='(order,i) in orders' :key='i' :order='order' />
+			<component :is="component" v-for='(order,i) in orders.slice().reverse()' :key='i' :order='order' />
 		</v-container>
 	</div>
 </template>

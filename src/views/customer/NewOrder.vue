@@ -1,6 +1,9 @@
 <template>
-	<v-container>	
-			<v-stepper v-model="step" vertical max-width="800">
+	<v-container class="ml-auto mr-auto">
+	<v-row>	
+		<v-spacer/>
+		<v-col cols="10">
+			<v-stepper v-model="step" vertical max-width="1200">
 				
 					<v-stepper-step step="1" :complete="step>1">
 					Add Name
@@ -59,6 +62,9 @@
 					</v-stepper-content>
 					<notification  ref="notify"/>
 			</v-stepper>
+		</v-col>
+		<v-spacer/>
+		</v-row>
 		
 		</v-container>
 
@@ -70,7 +76,6 @@
 	import Description from '@/components/customer/Description'
 	import Location from '@/components/customer/Location'
 	import ShoppingList from '@/components/customer/ShoppingList'
-	// import Tip from '@/components/customer/Tip'
 	import Total from '@/components/customer/Total'
 	import notification from '@/components/notification'
     export default{
@@ -117,13 +122,13 @@
 					break
 				}
 				case 3:{
-					this.order.description = payload[0]
+					this.order.instructions = payload[0]
 					this.order.receipt = payload[1]
 					break
 				}
 				case 4:{
 					this.order.location={
-						coords:this.$store.getters.coords,
+						coordinates:this.$store.getters.coords,
 						address:payload
 					}
 					console.log(this.order)

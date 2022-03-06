@@ -2,23 +2,59 @@
 	<v-container >
 		<v-row>
 			<v-col cols="12"> 
-				<OrderHead :name="order.name" :subtotal="order.subtotal" :tip="order.tip"/>
+				<OrderHead :orderTime="order.orderTime"
+				:status="order.status"  
+				:name="order.name" 
+				:subtotal="order.subtotal" 
+				:address="order.address"
+				:lat="!!order.location && order.location.coordinates[1]"
+				:long="!!order.location && order.location.coordinates[0]"
+				@drawer="drawer=true"
+				:tip="order.tip"/>
 			</v-col>
 		</v-row>
-		<v-row>
-			<v-col md="4">
+		<v-row v-if="!$vuetify.breakpoint.mobile">
+			<v-col md="8" >
 				<v-card>
-					HEllo
-					{{order.name }}
+					<v-card-title>
+						<v-icon class="mr-2">
+							mdi-list-status
+						</v-icon>
+						Instructions
+					</v-card-title>
+					<v-card-text class="text-body-1">
+						<p>
+							<ul>
+								<li>
+									{{order.receipt ? 'Must produce receipt': 'Receipt optional'}}
+								</li>
+								<li>
+									{{order.instructions}}
+								</li>
+							</ul>
+						</p>
+					</v-card-text>
 				</v-card>
 			</v-col>
+			<v-col>
+				<item-list :items="order.items" :status="order.status"/>
+			</v-col>
 		</v-row>
+		<v-navigation-drawer 
+		absolute
+		bottom
+		temporary
+		v-model="drawer"
+		>
+				<item-list :items="order.items" :status="order.status"/>
+		</v-navigation-drawer>
 	</v-container>
 </template>
 
 <script>
 import OrderHead from '@/components/customer/OrderHead'
 import AxiosAuth from '@/services/AxiosAuth'
+import ItemList from '@/components/ItemList'
 export default{
 	name: 'CustomerOrder',
 	data(){
@@ -27,7 +63,7 @@ export default{
 		long:12.212,
 		order:{},
 		noShow:false,
-
+		drawer:false,
 	}
 	},
 	props:{
@@ -71,6 +107,7 @@ export default{
 
 	components:{
 		OrderHead,
+		ItemList,
 		// OrderCard
 	},
 }
