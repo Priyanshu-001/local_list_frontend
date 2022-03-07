@@ -52,16 +52,44 @@
 					
 						₹ {{(subtotal+tip) || 0}}
 						<br>
-					
-						<v-btn color="error"  :disabled="!(status ==='waiting')">
+						
+						<v-btn 
+						v-if="type==='customer'"
+						color="error"  
+						:disabled="!(status ==='waiting')"
+						@click="$emit('cancel')" 
+						
+						>
+							
+							Cancel
+						</v-btn>
+
+						<v-btn 
+						v-else-if="type==='partner' &&status === 'waiting'"
+						color="success" 
+						@click="$emit('accept'); loading=true" 
+						:disabled="loading">	
+						<v-icon v-if="loading">
+							mdi-loading mdi-spin
+						</v-icon>
+							Accept
+						</v-btn>
+
+						<v-btn 
+						v-else-if="type==='partner' && status==='accepted' "
+						color="error" 
+						@click="$emit('cancel')" 
+						:disabled="!(status ==='accepted')">
 							
 							Cancel
 						</v-btn>
 						<v-btn 
+						class="mt-2"
 						@click.stop="$emit('drawer')"
 						block 
 						color="primary" 
 						text 
+						outlined
 						v-if="$vuetify.breakpoint.mobile">
 							<v-icon class="mr-2">
 								mdi-food
@@ -86,6 +114,7 @@ export default{
 	data(){
 	return{
 		drawer:false,
+		loading:false,
 
 	}
 	},
@@ -128,9 +157,13 @@ export default{
 
 	methods:{
 
+
 	},
 
 	computed:{
+		type(){
+			return this.$store.getters.type
+		}
 
 	},
 

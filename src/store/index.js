@@ -47,6 +47,12 @@ export default new Vuex.Store({
     },
     coords(state){
       return {lat:state.lat,long:state.long}
+    },
+    lat(state){
+      return state.lat
+    },
+    long(state){
+      return state.long
     }
   },
   mutations: {
@@ -108,6 +114,7 @@ export default new Vuex.Store({
 
       try{
         let location = await promisePosition()
+        console.log(location.coords)
         context.commit('getLocation',{lat:location.coords.latitude, long:location.coords.longitude})
 
       }

@@ -3,7 +3,7 @@
 		<h1 class="text-h4 font-weight-light">  Your Orders </h1> 
 		
 		<v-container>
-			<component :is="component" v-for='(order,i) in orders.slice().reverse()' :key='i' :order='order' />
+			<component :is="component" v-for='(order) in orders' :key='order._id' :order='order' />
 		</v-container>
 	</div>
 </template>
@@ -43,7 +43,7 @@ export default{
 				return this.$store.getters.type
 			},
 			component(){
-				return `${this.type}-order-item`
+				return `customer-order-item`
 			},
 
 	},

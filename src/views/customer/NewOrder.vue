@@ -2,7 +2,7 @@
 	<v-container class="ml-auto mr-auto">
 	<v-row>	
 		<v-spacer/>
-		<v-col cols="10">
+		<v-col cols="12" md="8">
 			<v-stepper v-model="step" vertical max-width="1200">
 				
 					<v-stepper-step step="1" :complete="step>1">
@@ -63,7 +63,30 @@
 					<notification  ref="notify"/>
 			</v-stepper>
 		</v-col>
-		<v-spacer/>
+
+		<v-col cols = "4" v-if="!$vuetify.breakpoint.mobile">
+			<v-card>
+				<v-card-title>
+					💡 Tips
+				</v-card-title>
+				<v-card-text>
+					<ul>
+						<li>
+							Not production ready yet
+						</li>
+						<li>
+							Please be unabiginous
+						</li>
+						<li>
+							Ensure all shops are within 3 km from your place
+						</li>
+						<li>
+							Higher the tip faster your order will be accepted
+						</li>
+					</ul>
+				</v-card-text>
+			</v-card>
+		</v-col>
 		</v-row>
 		
 		</v-container>
@@ -98,7 +121,7 @@
 				{
 					let res = await AxiosAuth.post('customer/neworder',{order:this.order})
 					this.show('Order confirmed redirecting....')
-					this.$router.push({name:'order',params:{id:res.data.id}})
+					setTimeout(()=>this.$router.push({name:'order',params:{id:res.data.id}}),4000)
 				}
 			catch(error){
 				console.log(error)
@@ -131,7 +154,7 @@
 						coordinates:this.$store.getters.coords,
 						address:payload
 					}
-					console.log(this.order)
+					// console.log(this.order)
 					break
 				}
 

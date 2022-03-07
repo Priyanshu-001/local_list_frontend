@@ -7,11 +7,14 @@
 				</v-btn>
 				</template>
 				<v-list>
+					{{type}}
 				<v-list-item
-				v-for="(item, index) in routes"
-				:key="index"
+				v-for="(item) in filteredRoutes"
+				:key="item.icon"
+				
 				>
-				<v-btn block color="primary"  class="d-flex justify-start" text :to="{name: item.link}">  <v-icon> {{item.icon}}</v-icon>  
+				<v-btn block color="primary"  class="d-flex justify-start" text :to="{name: item.link}"   > 
+					<v-icon> {{item.icon}}</v-icon>  
 					{{item.text}}</v-btn>
 					<v-spacer/>
 				</v-list-item>
@@ -47,6 +50,13 @@ export default{
 			icon: 'mdi-plus',
 			text: 'New Order',
 			link: 'neworder',
+			type: 'customer',
+		},
+		{
+			icon: 'mdi-plus',
+			text: 'Get Order',
+			link: 'getorder',
+			type: 'partner',
 		},
 		{
 			icon: 'mdi-history',
@@ -76,6 +86,12 @@ export default{
 	computed:{
 		user(){
 			return this.$store.getters.user;
+		},
+		type(){
+			return this.$store.getters.type;
+		},
+		filteredRoutes(){
+			return this.routes.filter(route=>!route.type || route.type===this.type)
 		}
 
 	},

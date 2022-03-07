@@ -10,6 +10,8 @@
 				:lat="!!order.location && order.location.coordinates[1]"
 				:long="!!order.location && order.location.coordinates[0]"
 				@drawer="drawer=true"
+				@cancel = "cancel"
+				@accept ="partnerAccept"
 				:tip="order.tip"/>
 			</v-col>
 		</v-row>
@@ -35,8 +37,7 @@
 						</p>
 					</v-card-text>
 				</v-card>
-				<updates-timeline @reload="getOrder" freq="600" :order="order">
-				</updates-timeline>
+				<updates-timeline @reload="getOrder" :freq="30000" :order="order" :status="order.status"/>
 			</v-col>
 			<v-col v-if="!$vuetify.breakpoint.mobile">
 				<item-list :items="order.items" :status="order.status"/>
@@ -78,7 +79,7 @@ export default{
 		
 		async getOrder(){
 			this.noShow = false
-			AxiosAuth.get(`customer/order/${this.id}`)
+			AxiosAuth.get(`${this.type}/order/${this.id}`)
 			.then(res=>{
 				if(res.status === 403){
 					this.noShow = true
@@ -88,7 +89,31 @@ export default{
 				}
 			})
 
-		}
+		},
+		async cancel(){
+			try{
+				await AxiosAuth.patch(`${this.type}/order/${this.id}/cancel`)
+			}
+			catch(err){
+				console.log(err)
+			}
+			finally{
+				setTimeout(()=>this.getOrder(),2500)
+			}
+
+		},
+		async partnerAccept(){
+			console.log('Accepting')
+			try{
+				await AxiosAuth.patch(`partner/order/${this.id}/accept`)
+			}
+			catch(err){
+				console.log(err)
+			}
+			finally{
+				setTimeout(()=>this.getOrder(),2500)
+			}
+		},
 
 	},
 
@@ -97,6 +122,9 @@ export default{
 			return this.$route.params.id
 
 		},
+		type(){
+			return this.$store.getters.type;
+		}
 
 
 	},

@@ -45,6 +45,11 @@ const routes = [
     component: ()=>import('../views/customer/NewOrder')
   },
   {
+    path: '/getorder',
+    name: 'getorder',
+    component: ()=>import('../views/partner/GetOrder')
+  },
+  {
     path: '/history',
     name: 'past',
     component: ()=>import('../views/History')
