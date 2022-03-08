@@ -17,6 +17,12 @@
 			<v-timeline-item v-for="(item,index) in timeline" :key="index" small :color="item.color" :icon="item.icon">	
 				<strong class="text-body-1 text--primary">{{item.title}}</strong>
 				<p class="text-subtitle-1">{{item.subtitle}}</p>
+				<component :is="component" 
+				:otp="order.otp" 
+				v-if="item.showComponent"
+				@error="$emit(reload)"
+				@verified="$emit(reload)"
+				/>
 			</v-timeline-item>
 		</v-timeline>
 		</v-card-text>
@@ -25,6 +31,8 @@
 
 <script>
 import AxiosAuth from '@/services/AxiosAuth'
+const PartnerOtp = ()=>import('@/components/partner/PartnerOtp')
+const CustomerOtp = ()=> import('@/components/customer/CustomerOtp')
 export default{
 	name: '',
 	data(){
@@ -96,6 +104,12 @@ export default{
 	},
 
 	computed:{
+		type(){
+			return this.$store.getters.type
+		},
+		component(){
+			return `${this.type}-otp`
+		},
 
 
 	},
@@ -137,7 +151,8 @@ export default{
 		clearInterval(this.poll)
 	},
 	components:{
-
+		PartnerOtp,
+		CustomerOtp,
 	},
 }
 </script>
