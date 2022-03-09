@@ -11,8 +11,11 @@
 								<li>
 									Order on {{(new Date(Number(orderTime))).toLocaleString() }}
 								</li>
-								<li v-if="delivered">
-									Delivered on
+								<li v-if="status== 'delivered'">
+									Delivered
+								</li>
+								<li v-else-if="status == 'cancelled' || status == 'rejected'">
+									Cancelled
 								</li>
 								<li v-else>
 									Delivery pending

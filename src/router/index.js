@@ -1,22 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+   
+    component: () => import( '../views/About.vue')
+  },
+   {
+    path: '/',
+    name: 'Dashboard',
+
+    component: () => import('../views/Dashboard.vue')
   },
   {
     path: '/:LoginType/login',
@@ -30,46 +29,88 @@ const routes = [
     path: '/changename',
     name: 'changeName',
     meta :{
-    fullscrn:false
+    fullscrn:false,
+    auth:true
       },
     component: ()=>import('../views/ChangeUsername')
   },
   {
     path: '/devices',
     name: 'devices',
+    meta :{
+    auth:true
+      },
     component: ()=>import('../views/Devices')
   },
   {
     path: '/neworder',
     name: 'neworder',
+    meta :{
+    auth:true,
+    typeReq: true,
+    type:'customer',
+      },
     component: ()=>import('../views/customer/NewOrder')
   },
   {
     path: '/getorder',
     name: 'getorder',
+    meta :{
+    auth:true,
+    typeReq: true,
+    type:'partner',
+
+      },
     component: ()=>import('../views/partner/GetOrder')
   },
   {
     path: '/history',
     name: 'past',
+    meta :{
+    auth:true
+      },
     component: ()=>import('../views/History')
   },
   {
     path: '/orders/:id',
     name: 'order',
+    meta :{
+    auth:true
+      },
     component: ()=>import('../views/Order')
   },
-  {
-    path: '/ActiveOrders',
-    name: 'current',
-    component: ()=>import('../views/Devices')
-  },
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+router.beforeEach((to,from,next)=>{
+ if(to.meta.typeReq && to.meta.type === store.getters.type)
+  {
+    next()
+  }
+  else if(to.meta.typeReq)
+  {
+    next({name: 'Dashboard'})
+  }
+  else if(to.meta.auth && store.getters.user._id)
+  {
+    next()
+  }
+  else if(to.meta.auth)
+  {
+    next({name:'Dashboard'})
+  }
+  else{
+    next()
+  }
+
+
+
+})
+
+
+
 
 export default router

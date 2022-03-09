@@ -49,9 +49,6 @@ export default{
 		status:{
 			type:String,
 		},
-		freq:{
-			type:Number,
-		}
 
 	},
 
@@ -89,10 +86,18 @@ export default{
 				color:'red',
 			}]
 		},
+		addDelivered(){
+			this.timeline = [...this.timeline,
+			{
+				title:'Order successfully delivered',
+				subtitle: (new Date(this.order.deliverTime)).toLocaleString()
+			}]
+		},
 		async update_status(){
 			try{
-				let res = await AxiosAuth.get('status')
-				if(res.status !== this.order.status)
+				const url = `/${this.type}/order/${this.id}/status`
+				let res = await AxiosAuth.get(url)
+				if(res.data.status !== this.order.status)
 					this.$emit('reload')
 			}
 			catch(err){
@@ -110,6 +115,9 @@ export default{
 		component(){
 			return `${this.type}-otp`
 		},
+		id(){
+			return this.$route.params.id
+		}
 
 
 	},
@@ -136,6 +144,13 @@ export default{
 					this.addWaiting()
 					this.addAccepted()
 					this.addRejected()
+					break;
+				}
+				case 'completed':{
+					this.addWaiting()
+					this.addAccepted()
+					this.addDelivered()
+					break;
 				}
 
 			}
@@ -143,12 +158,14 @@ export default{
 
 	},
 	mounted(){
-		// this.poll = setInterval(this.update_status,this.freq)
-		// console.log(this.poll)
+			this.poll = setInterval(this.update_status,30000)
+			console.log('Timer set')
+			console.log(this.poll)
 	},
-	beforeUnmount(){
+	beforeDestroy(){
 	if(this.poll)
 		clearInterval(this.poll)
+	console.log('hii')
 	},
 	components:{
 		PartnerOtp,

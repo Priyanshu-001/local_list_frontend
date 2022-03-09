@@ -42,14 +42,15 @@ export default{
 	methods:{
 		
 		async verify(){
-			AxiosAuth.post(`partner/order/${this.id}/otp`,{otp:this.otp})
+			const url = `partner/order/${this.id}/verifyotp`
+			AxiosAuth.post(url,{otp:this.otp})
 			.then(res=>{
 				if(res.status === 200){
 					setTimeout(()=>this.$emit('verified'),2000)
 				}	 
 			})
 			.catch(err=>{
-				if(err.status === 400)
+				if(err.response.status == 400)
 					this.incorrect = true
 				else
 					this.error = true

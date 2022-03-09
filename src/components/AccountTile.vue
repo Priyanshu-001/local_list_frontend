@@ -6,8 +6,16 @@
 				<v-icon> mdi-account </v-icon> Hi,{{user.name}}
 				</v-btn>
 				</template>
+				<v-list dense>
+					<v-list-item class="primary--text" dense>
+						<v-icon color="primary">
+							mdi-account
+						</v-icon>
+						{{user.type}} Account
+					</v-list-item>
+				</v-list>
+				<v-divider/>
 				<v-list>
-					{{type}}
 				<v-list-item
 				v-for="(item) in filteredRoutes"
 				:key="item.icon"
@@ -63,11 +71,6 @@ export default{
 			text: 'Order History',
 			link: 'past'
 		},
-		{
-			icon: 'mdi-play-circle',
-			text: 'Active Orders',
-			link: 'current',
-		}
 		]
 	}
 	},

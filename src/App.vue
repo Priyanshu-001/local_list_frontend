@@ -6,9 +6,10 @@
       dark
       dense
     >
+
       <div class="d-flex align-center">
       <v-icon x-large> mdi-bag-checked </v-icon>
-      Bagger
+      Local List
       </div>
 
       <v-spacer></v-spacer>

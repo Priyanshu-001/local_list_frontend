@@ -31,7 +31,7 @@
 									{{order.receipt ? 'Must produce receipt': 'Receipt optional'}}
 								</li>
 								<li>
-									{{order.instructions}}
+									{{order.instructions|| 'No instructions given'}}
 								</li>
 							</ul>
 						</p>

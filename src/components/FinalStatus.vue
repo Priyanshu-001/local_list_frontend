@@ -23,7 +23,7 @@
           <br/>
         <template v-if="OTP_status=='Verified'">
 				<template v-if="(!!user && user.status=='complete')">
-				<v-btn class="primary" :to="{name:'Home'}">
+				<v-btn class="primary" :to="{name:'Dashboard'}">
 				<v-icon  > mdi-home </v-icon>
 				Home
 				</v-btn>

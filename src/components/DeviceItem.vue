@@ -14,7 +14,7 @@
 
 				<v-card-title> {{device.browser}} at {{device.OS}}</v-card-title>
 				<v-card-subtitle> <v-icon> mdi-earth </v-icon> {{device.ip}} </v-card-subtitle>
-				<v-card-text> First login  at  {{Date.now()}}</v-card-text>
+				<v-card-text> First login  at {{(new Date(device.time)).toDateString()}}  </v-card-text>
 			</v-col>
 		</v-row>
 		</v-container>
