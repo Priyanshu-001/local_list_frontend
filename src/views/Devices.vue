@@ -2,9 +2,19 @@
 	<div class="d-flex flex-column align-center mt-4">
 		<v-spacer/><h1>  Devices </h1> <v-spacer/>
 		<h2>  You are currently logged in </h2>
+		<p >
+			<uL>
+			<li>
+				With the current implementation remote logout will work only after the device's JWT is expired.
+			</li>
+			<li>
+				Remote logout only invalidates refresh token for now.
+			</li>
+			</uL>
+		</p>
 		<v-container>
 			
-			<device-item v-for="(device,index) in deviceList " :device="device" :key="index" />
+			<device-item v-for="(device,index) in deviceList " @reload="getDevices" :device="device" :key="index" />
 		</v-container>
 		<notification ref="notify"/>
 	</div>
@@ -18,7 +28,7 @@ export default{
 	name: 'Devices',
 	data(){
 	return{
-			deviceList : [{'OS':'windows',browser:'Chroe',ip:'1921.xx.x.xx'}]
+		deviceList: []
 	}
 	},
 	props:{
@@ -26,21 +36,28 @@ export default{
 	},
 
 	methods:{
+		getDevices(){
+			AxiosAuth.get('/devices')
+		.then(res=>this.deviceList = res.data.devices)
+		
+		.catch(()=>{
+			this.$refs.notify.show('Error occured')
+		})
+
+		}
 
 	},
 
 	computed:{
 		user(){
 			return this.$store.getters.user
-		}
+		},
+		
 
 	},
 	created(){
-		AxiosAuth.get('/devices')
+		this.getDevices()
 		
-		.catch(()=>{
-			this.$refs.notify.show('Error occured')
-		})
 	},
 	watch:{
 
