@@ -10,7 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user:JSON.parse(window.localStorage.getItem('user')) || {},
-    baseURL: process.env.NODE_ENV === 'development' ? "http://localhost:80/api/": 'https://locallistbackend.azurewebsites.net/',
+    baseURL: process.env.NODE_ENV === 'development' ? "http://localhost:80/api/": 'https://locallistbackend.azurewebsites.net/api/',
     JWT:'',
     refreshToken: window.localStorage.getItem('refreshToken')||'',
     location_loading:false,
