@@ -13,8 +13,8 @@
 
 	</v-btn>
 	<div v-else>
-	<h4 color="light-blue">
-			<v-icon> mdi-target</v-icon>
+	<h4 color="blue-text">
+			<v-icon color="primary"> mdi-target</v-icon>
 			Location detected
 			<br>
 			<v-text-field 
