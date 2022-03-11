@@ -61,6 +61,8 @@ export default new Vuex.Store({
       state.refreshToken = ''
       state.user = {}
       window.localStorage.setItem('refreshToken',null)
+      window.localStorage.setItem('user',null)
+
 
     },
     setRefreshToken(state,refreshToken){
