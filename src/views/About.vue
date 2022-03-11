@@ -34,7 +34,7 @@
         
       </p>
       <p>
-        Partners get tip (specified at the time of ordering) for their service.they cn view orders whithin 3km of their location.
+        Partners get tip (specified at the time of ordering) for their service.they can view and accept orders whithin 3km of their location.
       </p>
       <p>
         Same mobile number can be used for registering as a customer and partner, but a user must login as a customer or a partner at one time.
@@ -75,6 +75,7 @@
        <p>
         <b> Geolocation Web api </b>: To determine customer's address and to find delivary partner's location for searching orders.
       </p>
+     
     </v-col>
     </v-row>
   </v-container>
