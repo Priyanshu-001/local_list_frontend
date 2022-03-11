@@ -6,11 +6,15 @@
       dark
       dense
     >
+   
+        <div class="d-flex align-center">
 
-      <div class="d-flex align-center">
-      <v-icon x-large> mdi-bag-checked </v-icon>
-      Local List
-      </div>
+        <v-icon x-large> mdi-home-map-marker </v-icon>
+        <h2>
+            Local List
+        </h2>
+        </div>
+     
 
       <v-spacer></v-spacer>
 
