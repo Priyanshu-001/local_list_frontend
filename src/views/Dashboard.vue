@@ -101,11 +101,6 @@
 			</aside>
 		</v-col>
 	</v-row>
-	<div style="position: fixed; bottom:0px; left:0pc; right:0px; background:lightgray;">
-		<div class="d-flex" style="justify-content: center;">
-			Hello
-		</div>
-	</div>
 	</v-container>
 </template>
 

@@ -3,7 +3,15 @@
 		<h1 class="text-h4 font-weight-light">  Your Orders </h1> 
 		
 		<v-container>
+
 			<component :is="component" v-for='(order) in orders' :key='order._id' :order='order' />
+			<center>
+				<h2 class="text-body-1" v-if="orders.length ===0 && orderLoaded">
+					No order found  try
+					<br/>
+					<code> checking in console for errors </code>
+				</h2>
+			</center>
 		</v-container>
 	</div>
 </template>
@@ -16,7 +24,8 @@ export default{
 	name: 'History',
 	data(){
 	return{
-		orders : []
+		orders : [],
+		orderLoaded : false
 
 	}
 	},
@@ -27,13 +36,17 @@ export default{
 	methods:{
 		getOrders(){
 			this.orders = []
+			this.orderLoaded = true
 			AxiosAuth.get(`${this.type}/orders`)
 			.then(res=>{
 				this.orders = res.data.orders
+				this.orderLoaded = true
+
 			})
 			.catch(error=>{
 				console.log('Error Occured')
 				console.log(error)
+
 			})
 		}
 	},
