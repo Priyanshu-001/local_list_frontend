@@ -50,6 +50,7 @@
 		<v-otp-input
 		:length="length"
 		v-model="OTP"
+    type="number"
 		/>
           <span class="text-caption grey--text text--darken-1">
 
@@ -164,11 +165,10 @@ export default {
 	},
   watch:{
     OTP: function(newOTP,oldOTP){
-      console.log(oldOTP.length + '  ' + newOTP.length)
       if(oldOTP.length < this.length && newOTP.length == this.length)
         {
           this.nextStep()
-          console.log("Something should happen")
+          console.log("auto verify")
         }
     }
   },
@@ -189,13 +189,15 @@ export default {
             this.snackbar=true
           }
       })
-      .catch(()=>{this.OTP_status = 'incorrect'})
+      .catch((err)=>{
+        this.OTP_status = 'incorrect'
+        console.log(err)
+      })
       // setTimeout(()=>this.OTP_status = 'incorrect',2000)
     },
     sendOTP: async function(){
       try{
           let response = await AxiosAuth.post(`/sendOTP`,{number:this.phone})
-          console.log(response)
          if(response.status === 200){
           this.snackMSG = 'Succesfully send OTP'
           this.snackbar=true
@@ -207,17 +209,28 @@ export default {
         }
     }
     catch(err){
-        if(err.status !== 404){
+        if(err.response.status !== 400){
           this.snackMSG = "Please Read the warnings"
           this.snackbar=true
+          this.step-=1          
+
           // this.step-=1
 
         }
-        else{
+        else if(err.response.status === 500){
+          this.snackMSG = 'Server Error'
+          this.snackbar = true
+
+        }
+        else if(err.response.status === 404){
           this.snackMSG = "Couldn't reach our servers"
           this.snackbar=true
           this.step-=1          
         }
+        else {
+                this.snackMSG = 'An error occured'
+                this.step-=1
+              }
           
 
     }
@@ -230,7 +243,8 @@ export default {
       }
     }
         }
-  }
+        }
+
  
 
 	

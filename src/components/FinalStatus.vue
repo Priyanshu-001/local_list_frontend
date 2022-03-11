@@ -67,7 +67,7 @@ export default{
 		partner:async function(){
 			await logout()
 			if(this.LoginType === 'customer')
-			this.$router.push({name:'login', params:{LoginType: 'business'}})
+			this.$router.push({name:'login', params:{LoginType: 'partner'}})
 			else
 			this.$router.push({name:'login', params:{LoginType: 'customer'}})
 			this.$emit('restart')
