@@ -71,6 +71,11 @@ export default{
 			text: 'Order History',
 			link: 'past'
 		},
+		{
+			icon:'mdi-information-outline',
+			text:'About',
+			link: 'About',
+		}
 		]
 	}
 	},
