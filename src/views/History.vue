@@ -5,10 +5,13 @@
 		<v-container>
 
 			<component :is="component" v-for='(order) in orders' :key='order._id' :order='order' />
-			<h2 class="text-body-1" v-if="order.length ===0 && orderLoaded">
-				No order found  try
-				<code> check in console for errors </code>
-			</h2>
+			<center>
+				<h2 class="text-body-1" v-if="orders.length ===0 && orderLoaded">
+					No order found  try
+					<br/>
+					<code> checking in console for errors </code>
+				</h2>
+			</center>
 		</v-container>
 	</div>
 </template>
