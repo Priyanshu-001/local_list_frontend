@@ -1,5 +1,17 @@
 # frontend
+## about
+Frontend for local list project.
 
+Live URL - https://gray-mushroom-029dae810.1.azurestaticapps.net/
+
+
+Join this app either as a customer or delivery partner. Customer uploads their shopping list, which is picked up by a partner who shops on customer's behalf and delivers their order.
+
+Partners get tip (specified at the time of ordering) for their service.they cn view orders whithin 3km of their location.
+
+Same mobile number can be used for registering as a customer and partner, but a user must login as a customer or a partner at one time.
+
+More details here - https://gray-mushroom-029dae810.1.azurestaticapps.net/about
 ## Project setup
 ```
 npm install
