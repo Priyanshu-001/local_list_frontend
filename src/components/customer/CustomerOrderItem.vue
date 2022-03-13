@@ -14,7 +14,7 @@
 					<li>
 						Ordered at <strong> {{ (new Date(order.orderTime)).toLocaleString() }} </strong>
 					</li>
-					<li> {{!!order.delivered && `Delivered at ${order.delivered}` || 'Delivering Pending'}}
+					<li> {{order.status}}
 					</li>
 					<li>
 						{{order.receipt && 'Receipt must' || 'Receipt optional'}}

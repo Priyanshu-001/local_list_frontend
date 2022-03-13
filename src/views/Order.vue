@@ -1,5 +1,17 @@
 <template>
-	<v-container >
+	<v-container v-if="noShow">
+		<center>
+			<h1 >
+					<code> Either This order doesn't exist <br>or <br>  it doesn't belongs to you</code>
+			</h1>
+			<br/>
+			<br/>
+			<v-btn outlined rounded text color="primary" :to="{name:'Dashboard'}" >
+				<v-icon>mdi-monitor-dashboard </v-icon> Back to DashBoard
+			</v-btn>
+		</center>
+	</v-container>
+	<v-container v-else >
 		<v-row>
 			<v-col cols="12"> 
 				<OrderHead :orderTime="order.orderTime"
@@ -87,6 +99,10 @@ export default{
 				else if(res.status === 200){
 					this.order = res.data
 				}
+
+			})
+			.catch(()=>{
+					this.noShow = true
 			})
 
 		},
