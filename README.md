@@ -12,6 +12,14 @@ Partners get tip (specified at the time of ordering) for their service.they cn v
 Same mobile number can be used for registering as a customer and partner, but a user must login as a customer or a partner at one time.
 
 More details here - https://gray-mushroom-029dae810.1.azurestaticapps.net/about
+
+## Deployment
+
+Frontend deployed using - Azure static webapps
+
+Backend Deployed using - Azure App service
+
+Cache used - redis cache for azure
 ## Project setup
 ```
 npm install
