@@ -7,17 +7,18 @@
 			<v-otp-input
 			length="4"
 			v-model="otp"
+			type="number"
 			/>
 			<p class="error--text" v-if="incorrect">
 				Incorrect OTP
 			</p>
-			<p class="error-text" v-else-if="error">
+			<p class="error--text" v-else-if="error">
 				⚠ Some Error occured retry
 			</p> 
 		</v-card-text>
 		<v-card-actions>
 			<v-spacer/>
-			<v-btn color="primary" block rounded @click="verify">
+			<v-btn color="primary" block rounded @click="verify" :disabled="freeze">
 				Verify
 			</v-btn>
 			<v-spacer/>
@@ -34,6 +35,7 @@ export default{
 	return{
 		incorrect: false,
 		error: false,
+		freeze:false,
 
 	}
 	},
@@ -42,11 +44,12 @@ export default{
 	methods:{
 		
 		async verify(){
+			this.freeze = true
 			const url = `partner/order/${this.id}/verifyotp`
 			AxiosAuth.post(url,{otp:this.otp})
 			.then(res=>{
 				if(res.status === 200){
-					setTimeout(()=>this.$emit('verified'),2000)
+					this.$emit('verified')
 				}	 
 			})
 			.catch(err=>{
@@ -55,6 +58,7 @@ export default{
 				else
 					this.error = true
 				console.log('OTP err')
+				this.freeze = false
 				console.log(err)
 			})
 		}

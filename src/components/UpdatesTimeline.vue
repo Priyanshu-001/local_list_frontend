@@ -158,7 +158,7 @@ export default{
 
 	},
 	mounted(){
-			this.poll = setInterval(this.update_status,30000)
+			this.poll = setInterval(this.update_status,17000)
 			console.log('Timer set')
 			console.log(this.poll)
 	},

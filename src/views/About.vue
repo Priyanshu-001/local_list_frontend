@@ -22,7 +22,7 @@
       <v-col>
     <v-row>
       <v-col>
-      <h2 class="text-h4">  Info  </h2>
+      <h2 class="text-h4"> <v-icon color="primary" x-large> mdi-information </v-icon> Info  </h2>
       <p>
         Project created by Priyanshu Ahuja for 
         <a href="https://futurereadytalent.in/" target="_blank"> Future Ready Talent Program. </a>
@@ -34,7 +34,7 @@
         
       </p>
       <p>
-        Partners get tip (specified at the time of ordering) for their service.they cn view orders whithin 3km of their location.
+        Partners get tip (specified at the time of ordering) for their service.they can view and accept orders whithin 3km of their location.
       </p>
       <p>
         Same mobile number can be used for registering as a customer and partner, but a user must login as a customer or a partner at one time.
@@ -44,9 +44,29 @@
   </v-col>
 
     </v-row>
+    <v-row class="mt-2" >
+      <v-col>
+    <v-row>
+      <v-col>
+      <h2 class="text-h4"> ⚡  Deployment  </h2>
+      <p>
+        Frontend deployed using - <strong> Azure static webapps </strong>
+      </p>
+      <p>
+        Backend Deployed using - <strong>Azure App service</strong>
+      </p>
+      <p>
+        Cache used - <strong>redis cache for azure</strong> 
+      </p>
+     
+    </v-col>
+    </v-row>
+  </v-col>
+
+    </v-row>
      <v-row>
       <v-col>
-      <h2 class="text-h4"> Tech Stack  </h2>
+      <h2 class="text-h4"> 🖥 Tech Stack  </h2>
       <p>
         <b> Frontend </b>: Vue.js, vuex, v-router, vuetify, jwt decode
 
@@ -62,7 +82,7 @@
 
     <v-row>
       <v-col>
-      <h2 class="text-h4"> Technologies </h2>
+      <h2 class="text-h4"> 🤖 Technologies </h2>
       <p> 
         <b> JWT </b>: The app is an implementation of JWT along with refresh token and remote sign out
       </p>
@@ -75,6 +95,7 @@
        <p>
         <b> Geolocation Web api </b>: To determine customer's address and to find delivary partner's location for searching orders.
       </p>
+     
     </v-col>
     </v-row>
   </v-container>

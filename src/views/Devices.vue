@@ -14,7 +14,7 @@
 		</p>
 		<v-container>
 			
-			<device-item v-for="(device,index) in deviceList " @reload="getDevices" :device="device" :key="index" />
+			<device-item v-for="(device) in deviceList " @reload="getDevices" :device="device" :key="device.clientID" />
 		</v-container>
 		<notification ref="notify"/>
 	</div>

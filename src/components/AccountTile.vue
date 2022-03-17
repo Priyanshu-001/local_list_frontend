@@ -1,5 +1,4 @@
 <template>
-
 	<v-menu offset-y >
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn  text v-bind="attrs" v-on="on">
@@ -50,6 +49,11 @@ export default{
 		offset: '',
 		routes:[
 		{
+			icon:'mdi-information-outline',
+			text:'About',
+			link: 'About',
+		},
+		{
 			icon: 'mdi-devices',
 			text: 'devices',
 			link: 'devices',
@@ -71,6 +75,7 @@ export default{
 			text: 'Order History',
 			link: 'past'
 		},
+		
 		]
 	}
 	},
