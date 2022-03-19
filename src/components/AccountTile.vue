@@ -84,9 +84,17 @@ export default{
 	},
 
 	methods:{
-		logoutUser(){
-			logout()
-			console.log(logout)
+		async logoutUser(){
+			try	{
+				await logout()
+				this.$router.push({name:'Dashboard'})
+			}
+			catch(err){
+				console.log(err)
+				this.$router.push({name:'login',params:{type:'customer'}})
+
+			}
+		
 		}
 
 	},
