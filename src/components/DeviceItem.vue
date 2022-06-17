@@ -1,6 +1,6 @@
 <template>
 
-	<v-card>
+	<v-card class="my-3">
 		<v-container>
 
 		<v-row>
@@ -21,7 +21,14 @@
 		</v-container>
 		<v-divider/>
 		<v-card-actions> <v-spacer/> 
-			<v-btn @click="remove" color="primary" v-if="device.clientID != clientID "> <v-icon> mdi-logout </v-icon> Logout </v-btn>
+			<v-btn @click="remove" color="primary" :disabled="loading" v-if="device.clientID != clientID ">
+				<template v-if="!loading">
+					<v-icon> mdi-logout </v-icon> Logout
+				</template>
+				<template v-else>
+					<v-icon>mdi-loading mdi-spin</v-icon> removing
+				</template>
+			</v-btn>
 			<h2 class="primary--text text-button" color="primary" text v-else>
 				<v-icon color="primary"> 
 					mdi-dots-hexagon
@@ -39,6 +46,7 @@ export default{
 	name: 'DeviceItem',
 	data(){
 	return{
+		loading:false,
 
 	}
 	},
@@ -52,10 +60,11 @@ export default{
 
 	methods:{
 		async remove()
-		{
+		{	this.loading=true
 			AxiosAuth.post('/remove',{clientID: this.device.clientID})
 			.then(this.$emit('reload'))
 			.catch(err=>console.log(err))
+			.finally(this.loading=false)
 		}
 
 	},

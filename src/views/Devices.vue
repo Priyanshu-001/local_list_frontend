@@ -14,7 +14,7 @@
 		</p>
 		<v-container>
 			
-			<device-item v-for="(device) in deviceList " @reload="getDevices" :device="device" :key="device.clientID" />
+			<device-item v-for="(device) in deviceList " @reload="removeItem" :device="device" :key="device.clientID" />
 		</v-container>
 		<notification ref="notify"/>
 	</div>
@@ -36,6 +36,10 @@ export default{
 	},
 
 	methods:{
+		removeItem(){
+			this.$refs.notify.show('Reloading list')
+			this.$router.go()
+		},
 		getDevices(){
 			AxiosAuth.get('/devices')
 		.then(res=>this.deviceList = res.data.devices)
