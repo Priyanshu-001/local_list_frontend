@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '@/store/index.js'
 
+
       
      
       const AxiosAuth = axios.create({
@@ -47,7 +48,7 @@ import store from '@/store/index.js'
       }
       )
     async function logout(){
-      store.dispatch('logout')
+      
       AxiosAuth.post('/logout')
       .then(res=>{
         if(res.status===200)
@@ -57,6 +58,10 @@ import store from '@/store/index.js'
       })
       .catch(error=>{
         return Promise.reject(error)
+      })
+      .finally(()=>{
+        store.dispatch('logout')
+      
       })
     }
     export {logout}
