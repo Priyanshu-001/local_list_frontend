@@ -23,6 +23,7 @@ const routes = [
     meta :{
     fullscrn:true
   },
+    props:true,
     component: ()=>import('../views/login')
   },
   {

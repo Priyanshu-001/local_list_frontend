@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '@/store/index.js'
 
+
       
      
       const AxiosAuth = axios.create({
@@ -27,7 +28,6 @@ import store from '@/store/index.js'
         if(err.response && err.response.status === 401 && !err.config._retry &&err.config.url!=`/refreshToken`)
           { 
             err.config._retry = true
-            console.log(err.config.url)
             try{
               const rs = await AxiosAuth.post('/refreshToken',{
                 refreshToken: store.getters.refreshToken
@@ -41,20 +41,27 @@ import store from '@/store/index.js'
               return Promise.reject(err)
             }
           }
+          else if(err.response && err.response.status === 401){
+            store.dispatch('invalidateRefresh')
+          }
           return Promise.reject(err)
       }
       )
     async function logout(){
-     
+      
       AxiosAuth.post('/logout')
       .then(res=>{
         if(res.status===200)
-        store.dispatch('logout')
+        
         return Promise.resolve({success:true})
 
       })
       .catch(error=>{
         return Promise.reject(error)
+      })
+      .finally(()=>{
+        store.dispatch('logout')
+      
       })
     }
     export {logout}

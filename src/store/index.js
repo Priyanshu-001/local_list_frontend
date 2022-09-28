@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import jwt_decode from "jwt-decode";
+import router from '../router';
 // import AxiosAuth from '@/services/AxiosAuth'
 // import axios from 'axios'
 
@@ -65,6 +66,7 @@ export default new Vuex.Store({
 
 
     },
+    
     setRefreshToken(state,refreshToken){
       state.refreshToken = refreshToken
     },
@@ -99,6 +101,10 @@ export default new Vuex.Store({
 
   },
   actions: {
+    async invalidateRefresh(context){
+      router.push({name:'login',params:{loggedOutAlert:true,LoginType:context.state.user.type || 'customer'}})
+      context.commit('logout')
+    },
     async logout(context){
       context.commit('logout')      
     },

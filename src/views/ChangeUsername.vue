@@ -68,7 +68,7 @@ export default{
 						console.log("HELLO")
 						this.$store.dispatch('setJWT',JWT)
 						this.$store.dispatch('setRefreshToken',refreshToken)
-						setTimeout(()=>{this.nextStep()},3000)
+						setTimeout(()=>{this.nextStep()},300)
 					})
 					.catch(err=>{
 						console.log(err)
@@ -79,7 +79,7 @@ export default{
 					})
 			},
 			nextStep(){
-				this.$router.push({name:'Home'})
+				this.$router.push({name:'Dashboard'})
 			}
 	},
 	computed:{
